@@ -4,7 +4,7 @@ name: Deploy no EC2 - WEB
 on:
   # Runs on pushes targeting the default branch
   push:
-    branches: ["master"]
+    branches: ["main"]
  
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -25,33 +25,7 @@ jobs:
  
       - name: Deploy to EC2
         run: |
-            echo "-----BEGIN RSA PRIVATE KEY-----
-MIIEpQIBAAKCAQEAs20w3RNDSGaDyyBxKepfUKr0fo5hK37Qc8cZnPQcWgTRnI5H
-/rVMsk2FH6uB3VScS/SYANFLWXz2JdjKVJuZYVVSCW2l317zhE0pQ/ig6JVc2FFv
-C8IqM4zoqklrHcAOA/KNDfCqMYhLqntlvPg2I2Wy2XCchwrcDdMtBrGQtzaZAMoU
-QzXKUmS0ewLRsMy1ZhmtT8XpMopEvIzwrK6hGwP4YbmDtQ0vtKocwY1F3Q8kYkJy
-KfbuoHwVfLO8tcd3dSDnkgAthcl2QmDFFvEANbMhZHp8HuWVs4ezLb+u+kCAagT7
-Yi5rx0un0Voqgy+qMVXIJ8FNnA4LNQHNNX3qpwIDAQABAoIBAGB+T3IFQwDzyNr7
-xoAhQENUvQo2rgFDQP2SzK6BBaJPxx6n0gYkIGwfjoFarguGzkt27iw6Yohs0L/H
-2AAqchFLXkQdyL/ZA6NaD+AzHO4YLYdUPCEZubJhjFrQAyBLwf3TepJNpGng/7he
-hndbEVp1/fo8OqHRcEirEiLwaYBtoNHkXzAx5s2T8Wt2881acEVfa6VS4AHtE5Jb
-6Ty9ULUlRUwfVZ0OskJGqTHJTPnHskH0mPBcnc9fUWR5jFKdfih55WJvwY0NT5/Z
-UHMrdbDN54bmctKxmaYz8b1/Yf6WGvGvNNMMekr4YReLvzoLPDJF4w0VPY9d7Ibc
-/rZn5mkCgYEA2Ahx/Czhp/mjcCfLK3cIORpkTZvqdUogHENWZAfRasf10RtWq2Qr
-NLGV+JDuiszy31gNBQ65dc4F8d3VfTYQStlQL6QcLNcBAW9mZW/NCZhMJS8IqEmK
-JSK+u1AALyW6OBwBoQmQYod+UX22w9MPzDq29ViU05NdmKjQWgTZJCsCgYEA1J8G
-MOFoFGAogmyuKF6p/5zk65G61IrJzobx2s0ZfP6PUORAnx7qTzPpUAzz9FPLJrto
-nqS0OIEhvVpS0C96RZ3ttxO3tdWZkN/XjsvfUygMv8GuGf1vDGsticr05Yadu3Qf
-j3gYSrnUjn7Vy+mvFB2rBhFOJTUB21xSw2AgqXUCgYEAoLu/20mlZ65EnTjuYFuD
-AcGSKXA9RKEvPPgY+fobJSC706ZMmN7BisYqeDOVWC5e8i/4F/A5qt3r7GYJ5sxn
-2NjRYXDwCai6tc+l1wkU+/OVjADvpw54O2MbmBBQ4sNmR0MHL0MHa1e2c3lel1qd
-IW36HJeYu8akV+Yahy+eQ9sCgYEAkVdPRRSgL+V3a4hdGI11SZz3Qyxv+SASSVIn
-e3jeJnpgf1w37E2Wv6NtpmHkVSz+XrCXGHLgGwvyg1x95X++5l3JhG8/ElY7zjOl
-RyCHvXFQHbiIiY2bXnLZQyrwcwGtStlbRZhDirky2mFLRkOsgWSyZshnkbmFVmzq
-ylEooo0CgYEAwvrxe2EOrR7E2zJU6r/sRidF7PxoJTI59wwUAW/w8/yK2zLbzu9K
-u2csKdRhyWZ/tPLLbU4Y76Nlwhn/ah1flMVr3jFQMhwajImFr6kPjLeQ9Y6o7mC3
-AEZTsz6rpTR/yhk6DxBx8CW/mU2oSiQJbT8t2fsBLwCmRdZFP2QSTBk=
------END RSA PRIVATE KEY-----" >private_key && chmod 600 private_key
+            echo "${{secrets.KEY_DEVOPS}}" >private_key && chmod 600 private_key
             ssh -o StrictHostkeyChecking=no -i private_key ubuntu@ec2-3-91-26-28.compute-1.amazonaws.com "
                       cd /var/www/html/web_flare &&
                       sudo git pull "
